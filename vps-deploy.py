@@ -33,7 +33,7 @@ def date_stamp():
 #print ang log
 def logger(msg):
     print(date_stamp() + " : " + msg)
-    log_file.write(date_stamp() + " : " + msg)
+    log_file.write(date_stamp() + " : " + msg + "\n")
 #parse user input
 def get_answer(question, question_type):
     answer = input(question)
