@@ -4,9 +4,12 @@
 #  digiant.ru                                                                                  #
 ################################################################################################
 import argparse
+import os
+import re
+from datetime import datetime
 
-LAST_MODIFIED_DATE = "02.04.2023"
-VERSION = "0.00"
+LAST_MODIFIED_DATE = "03.04.2023"
+VERSION = "0.1"
 
 ####### Parsing script arguments #######
 parser = argparse.ArgumentParser(description=
@@ -23,4 +26,43 @@ parser.add_argument(
 args = parser.parse_args()
 print(args.recovery)
 
-#test
+######### DECLARE FUNCTIONS ############
+#current date and time in specific format
+def date_stamp():
+    return datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+#print ang log
+def logger(msg):
+    print(date_stamp() + " : " + msg)
+    log_file.write(date_stamp() + " : " + msg)
+#parse user input
+def get_answer(question, question_type):
+    answer = input(question)
+    match question_type:
+        case "b":
+            if answer == "yes":
+                logger("User answered YES on question: " + question)
+                return True
+            else:
+                logger("User answered NO on question: " + question)
+                return False
+        case "s":
+            logger("User enter value:" + answer + " on request:" + question)
+            return str(answer)
+        case "i":
+            logger("User enter value:" + answer + " on request:" + question)
+            return int(answer)
+
+#def find_him_and_kill_him:
+
+######### INIT VARIABLES ##############
+log_filename = "vps-deploy.log"
+
+######### START SCRIPT ################
+#Open or create logfile if not exist
+log_file = open(log_filename, 'a+')
+
+get_answer("How are you, yes or any key for no", "b")
+
+#print(os.listdir("/home"))
+#print(os.mkdir("/home/user/test_dir"))
+
