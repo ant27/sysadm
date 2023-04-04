@@ -54,14 +54,43 @@ def get_answer(question, question_type):
 
 #def find_him_and_kill_him:
 
+######### SERVICES ####################
+#1. Nginx
+#2. Postgresql
+#3. Gitlab
+#4. DotProject
+#5. OwnCloud
+#6. Some etc.
+
 ######### INIT VARIABLES ##############
 log_filename = "vps-deploy.log"
+
+#bacic
+domain = "test.ru"
+
+#docker
+
+
+#docker services
+nginx = {
+    "value": 5,
+    "children": [
+        {"value": 10},
+        {"value": 100},
+        {"value": "nested", "children": []}
+    ]
+}
 
 ######### START SCRIPT ################
 #Open or create logfile if not exist
 log_file = open(log_filename, 'a+')
 
-get_answer("How are you, yes or any key for no", "b")
+
+#create
+
+
+
+#get_answer("How are you, yes or any key for no", "b")
 
 #print(os.listdir("/home"))
 #print(os.mkdir("/home/user/test_dir"))
