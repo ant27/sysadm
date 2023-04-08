@@ -72,22 +72,25 @@ domain = "test.ru"
 
 
 #docker services
-nginx = {
-    "value": 5,
-    "children": [
-        {"value": 10},
-        {"value": 100},
-        {"value": "nested", "children": []}
-    ]
+services = {
+    "nginx": {
+        "image": "nginx:1.17.4-alpine",
+        "command": "nested",
+        "depends_on": "nested",
+        "ports": "nested",
+        "volumes": "nested",
+        "networks": "nested"
+    },
+    "postgresql": {
+        "value1": 10,
+        "value2": 100,
+        "value3": "nested"
+    }
 }
 
 ######### START SCRIPT ################
 #Open or create logfile if not exist
 log_file = open(log_filename, 'a+')
-
-
-#create
-
 
 
 #get_answer("How are you, yes or any key for no", "b")
