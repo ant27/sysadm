@@ -8,8 +8,8 @@ import os
 import re
 from datetime import datetime
 
-LAST_MODIFIED_DATE = "03.04.2023"
-VERSION = "0.1"
+LAST_MODIFIED_DATE = "08.04.2023"
+VERSION = "0.5"
 
 ####### Parsing script arguments #######
 parser = argparse.ArgumentParser(description=
@@ -72,22 +72,30 @@ domain = "test.ru"
 
 
 #docker services
-services = {
-    "nginx": {
-        "image": "nginx:1.17.4-alpine",
-        "command": "nested",
-        "depends_on": "nested",
-        "ports": "nested",
-        "volumes": "nested",
-        "networks": "nested"
+docker = {
+    "volumes": {
+        "www-data": "/srv/nginx/data",
+        "db-data": "/srv/mysql/data",
+        "certbot-etc": "/srv/certbot",
     },
-    "postgresql": {
-        "value1": 10,
-        "value2": 100,
-        "value3": "nested"
+    "networks": {
+        "internal": {"driver": "bridge"},
+        "external": {"driver": "bridge"}
+    },
+    "services": {
+        "nginx": {
+            "image": "nginx:1.17.4-alpine",
+            "ports": {"80": "80"},
+            "volumes": {"www-data": "/var/www/html"},
+            "networks": {"external", "internal"}
+        },
+        "postgresql": {
+            "image": "postgres:13.3",
+            "volumes": {"db-data": "/var/lib/postgresql/data"},
+            "networks": {"external", "internal"}
+        }
     }
 }
-
 ######### START SCRIPT ################
 #Open or create logfile if not exist
 log_file = open(log_filename, 'a+')
