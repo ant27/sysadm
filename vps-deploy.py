@@ -52,7 +52,12 @@ def get_answer(question, question_type):
             logger("User enter value:" + answer + " on request:" + question)
             return int(answer)
 
-#def find_him_and_kill_him:
+def print_docker_struct():
+    print("test")
+
+
+
+
 
 ######### DOCUMENTATION ####################
 # 1. https://docs.gitlab.com/ee/install/docker.html - Install GitLab using Docker Compose
@@ -75,10 +80,7 @@ log_filename = "vps-deploy.log"
 #bacic
 domain = "test.ru"
 
-#docker
-
-
-#docker services
+#docker config dictionary
 docker = {
     "volumes": {
         "mediawiki-data": "/srv/mediawiki/data",
@@ -95,8 +97,13 @@ docker = {
         "nginx": {
             "image": "nginx:1.17.4-alpine",
             "ports": {"80": "80"},
-            "volumes": {"www-data": "/var/www/html"},
-            "mounts": {"/srv/nginx/conf.d": "/etc/nginx/conf.d"},
+            "volumes": {
+                "mediawiki-data": "/var/www/mediawiki"
+            },
+            "mounts": {
+                "/srv/nginx/www-default": "/var/www/html",
+                "/srv/nginx/conf.d": "/etc/nginx/conf.d"
+            },
             "networks": {
                 "external",
                 "internal"
@@ -161,3 +168,4 @@ log_file = open(log_filename, 'a+')
 #print(os.listdir("/home"))
 #print(os.mkdir("/home/user/test_dir"))
 
+print(len(docker))
