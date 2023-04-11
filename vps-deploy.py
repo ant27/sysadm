@@ -8,8 +8,8 @@ import os
 import re
 from datetime import datetime
 
-LAST_MODIFIED_DATE = "09.04.2023"
-VERSION = "0.6"
+LAST_MODIFIED_DATE = "11.04.2023"
+VERSION = "0.7"
 
 ####### Parsing script arguments #######
 parser = argparse.ArgumentParser(description=
@@ -53,11 +53,22 @@ def get_answer(question, question_type):
             return int(answer)
 
 def print_docker_struct():
-    print("test")
-
-
-
-
+    for item in docker:
+        nested_item_lev2 = docker[item]
+        if len(nested_item_lev2) > 0:
+            item_str = "├─ " + item + " ──┐"
+        else:
+            item_str = "|-" + item
+        item_str_len = len(item_str)
+        print(item_str)
+        for nested_item_lev3 in nested_item_lev2:
+            n = 1
+            spaces = ""
+            while n < item_str_len:
+                spaces += " "
+                n += 1
+            print(spaces + "├─ " + nested_item_lev3)
+        print("|")
 
 ######### DOCUMENTATION ####################
 # 1. https://docs.gitlab.com/ee/install/docker.html - Install GitLab using Docker Compose
@@ -168,4 +179,4 @@ log_file = open(log_filename, 'a+')
 #print(os.listdir("/home"))
 #print(os.mkdir("/home/user/test_dir"))
 
-print(len(docker))
+print_docker_struct()
