@@ -62,13 +62,22 @@ def print_docker_struct():
         item_str_len = len(item_str)
         print(item_str)
         for nested_item_lev3 in nested_item_lev2:
-            n = 1
+            nested_item_lev4 = nested_item_lev2[nested_item_lev3]
+            n = 2
             spaces = ""
             while n < item_str_len:
                 spaces += " "
                 n += 1
-            print(spaces + "├─ " + nested_item_lev3)
-        print("|")
+            print("│" + spaces + "├─ " + nested_item_lev3)
+            print(nested_item_lev4)
+        print("│")
+
+def recursive_flatten_iterator(d):
+  for k, v in d.items():
+    if isinstance(v, list):
+      yield v
+    if isinstance(v, dict):
+      yield from recursive_flatten_iterator(v)
 
 ######### DOCUMENTATION ####################
 # 1. https://docs.gitlab.com/ee/install/docker.html - Install GitLab using Docker Compose
@@ -179,4 +188,8 @@ log_file = open(log_filename, 'a+')
 #print(os.listdir("/home"))
 #print(os.mkdir("/home/user/test_dir"))
 
-print_docker_struct()
+#print_docker_struct()
+
+x = {"all":{"animals":{"predators":{"more":1}}},"people":["women","men"],"others":{}}
+for x in recursive_flatten_iterator(x):
+    print(x)
