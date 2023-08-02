@@ -72,14 +72,19 @@ def print_docker_struct():
             print(nested_item_lev4)
         print("│")
 
-def print_structure(item_name, item_data,level,item_name_len):
+def print_structure(item_name,item_data,item_name_len):
     if isinstance(item_data, dict):
-      print(level*item_name_len*" " + "├─ " + item_name + "──┐")
-      level += 1
-      for item_name2, item_data2 in item_data.items():
-        print_structure(item_name2,item_data2,level,len(item_name2)+5)
+      for item_name, item_data in item_data.items():
+        print(" "*item_name_len+"├─ "+item_name+" ──┐")
+        item_name_len += len(item_name) + 6
+        print_structure(item_name,item_data,item_name_len)
+        item_name_len -= len(item_name) + 6
     else:
-      level -= 1
+      print(" "*item_name_len+item_data)
+
+# for item_name, item_data in docker.items():
+#     print_structure(item_name, item_data, 0, 0)
+
 
 ######### DOCUMENTATION ####################
 # 1. https://docs.gitlab.com/ee/install/docker.html - Install GitLab using Docker Compose
@@ -192,7 +197,5 @@ log_file = open(log_filename, 'a+')
 
 #print_docker_struct()
 
-#print_structure(docker,0,0)
+print_structure(0,docker,0)
 
-for item_name, item_data in docker.items():
-    print_structure(item_name, item_data, 0, 0)
