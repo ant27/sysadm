@@ -196,6 +196,5 @@ log_file = open(log_filename, 'a+')
 #print(os.mkdir("/home/user/test_dir"))
 
 #print_docker_struct()
-
-print_structure(0,docker,0)
+#print_structure(0,docker,0)
 
