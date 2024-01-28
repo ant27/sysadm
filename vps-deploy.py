@@ -8,8 +8,8 @@ import os
 import re
 from datetime import datetime
 
-LAST_MODIFIED_DATE = "11.04.2023"
-VERSION = "0.7"
+LAST_MODIFIED_DATE = "28.01.2024"
+VERSION = "0.8"
 
 ####### Parsing script arguments #######
 parser = argparse.ArgumentParser(description=
