@@ -11,7 +11,7 @@ networks:
 volumes:
   drupal-data:/srv/drupal-ant-blog/data
   db-data:/srv/mysql/data
-  certbot-etc:/srv/certbot
+  - /srv/mysql/init.d:/docker-entrypoint-initdb.d
 ```
 #### Общие параметры docker-compose.yml
 - version: "3": версия docker-compose
@@ -24,3 +24,6 @@ volumes:
 #### Раздел volumes
 - drupal-data: название тома
 - /srv/drupal-ant-blog/data: адрес в файловой системе хоста, куда будет монтироваться том.
+- /srv/mysql/init.d:/docker-entrypoint-initdb.d: монтирование напрямую папки на хосте (1-ая позиция) в папку в контейнере (2-ая позиция).
+В данном случае это специальная директория docker-entrypoint-initdb.d, в которой помещают скрипты инициализации БД. Они будут выполнены, если директория данных СУБД пуста. 
+#### Выполнение произвольного скрипта при запуске контейнера.
